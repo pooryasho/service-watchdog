@@ -1,88 +1,61 @@
-📦 Installer — install.sh
-Installs a systemd watchdog for any Linux service by name. It watches the logs and restarts the service if an error is found — with safety mechanisms to avoid SSH interference or restart loops.
+🛠️ Install Watchdog
+This script sets up a watchdog that monitors a systemd service by scanning its logs for errors. If an error is detected and certain conditions are met (e.g., no active SSH session, cooldown passed), the service is automatically restarted.
 
-🔧 What It Does
-Prompts for:
+Install Steps:
 
-✅ Service name (e.g., nginx.service)
+    bash install-watchdog.sh
+    
+You will be prompted to enter:
 
-⏱️ Check interval (e.g., 30s, 1min)
+✅ Service name – e.g., nginx
 
-🛑 Cooldown after restart (default: 300 seconds)
+⏱️ Check interval – e.g., 30s, 1min
 
-📂 Storage path for watchdog script (e.g., /root/my-watchdogs)
+🕑 Cooldown (in seconds) – e.g., 300
 
-Then it:
+📂 Watchdog script directory – e.g., /root/service-watchdogs
 
-Creates a watchdog script:
+This will:
 
-/root/my-watchdogs/nginx-watchdog.sh (based on service name)
+Create a script: /root/service-watchdogs/nginx-watchdog.sh
 
-Sets up:
+Create systemd unit files:
 
-A systemd oneshot service
+/etc/systemd/system/nginx-watchdog.service
 
-A systemd timer to run it periodically
+/etc/systemd/system/nginx-watchdog.timer
 
-Restarts the service on ERROR log matches
+Enable and start the timer.
 
-🔒 Safe Restart Conditions
-Skips restart if:
+To verify status:
 
-👤 An SSH session is currently active
+    systemctl status nginx-watchdog.timer
+    
+🧹 Uninstall Watchdog
+This script removes a previously installed watchdog setup, including its script, timer, service, and state file.
 
-⏳ Last restart was within the cooldown period
+Uninstall Steps:
 
-✅ Why Use It?
-Keeps any systemd service running
+    bash uninstall-watchdog.sh
+    
+You will be prompted to enter:
 
-Lightweight and non-intrusive
+🧾 Service name – e.g., nginx
 
-Customizable and works with any service
+📂 Watchdog script directory – e.g., /root/service-watchdogs
 
-Persistent across reboots
+This will:
 
-🧪 Installer Example Output
+Stop and disable the timer and service:
 
-    🔧 Systemd Watchdog Setup Script
-    This script installs a watchdog for any systemd service.
-    It will restart the service if errors are detected in logs.
+nginx-watchdog.timer
 
-    🔍 Enter the name of the systemd service (e.g., nginx.service):
-    ⏱️  Enter the interval to check the service (e.g., 30s, 1min) [default: 30s]:
-    🛑 Enter cooldown time after a restart (in seconds) [default: 300]:
-    📂 Enter the full path where the watchdog script should be stored [default: /root/service-watchdogs]:
+nginx-watchdog.service
 
-    📁 Creating directory: /root/service-watchdogs...
-    📝 Writing watchdog script to /root/service-watchdogs/nginx-watchdog.sh...
-    ⚙️ Creating systemd service: /etc/systemd/system/nginx-watchdog.service...
-    🕒 Creating systemd timer (interval: 30s) at /etc/systemd/system/nginx-watchdog.timer...
-    🔄 Reloading systemd and enabling timer...
+Delete:
 
-    ✅ Watchdog setup complete for nginx.service!
-    🔍 To check the status: systemctl status nginx-watchdog.timer
+Watchdog script: /root/service-watchdogs/nginx-watchdog.sh
 
+Systemd files
 
-
-🧹 Uninstaller — uninstall.sh
-Safely removes a systemd watchdog that was installed for a specific service.
-
-🔧 What It Does:
-
-Prompts for:
-
-✅ Systemd service name (e.g., nginx.service)
-
-📁 The directory path where the watchdog script was saved (e.g., /root/my-watchdog)
-
-Cleans up:
-
-Corresponding .service and .timer files
-
-The service-watchdog.sh script in the provided path
-
-Temporary state file used for cooldown tracking
-
-Leaves the target directory untouched
-
-✅ Keeps your system clean without disrupting other files.
+Cooldown state file: /var/tmp/nginx_watchdog_last_action
