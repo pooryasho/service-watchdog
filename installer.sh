@@ -30,7 +30,7 @@ read -rp "$(echo -e ${CYAN}"🛑 Enter cooldown time after a restart (in seconds
 COOLDOWN=${COOLDOWN:-300}
 
 # Ask for script directory
-read -rp "$(echo -e ${CYAN}"📂 Enter the full path where the watchdog script should be stored [default: /root/service-watchdogs]: "${NC})" SCRIPT_DIR
+read -rp "$(echo -e ${CYAN}"📂 Enter the full path where the watchdog script should be stored [default: /root/service-watchdog]: "${NC})" SCRIPT_DIR
 SCRIPT_DIR=${SCRIPT_DIR:-/root/service-watchdogs}
 
 # Paths
