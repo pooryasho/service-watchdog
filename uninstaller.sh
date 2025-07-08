@@ -17,7 +17,7 @@ if [[ -z "$SERVICE_BASENAME" ]]; then
 fi
 
 # Ask for the script directory
-read -rp "$(echo -e ${CYAN}"📂 Enter the path where the watchdog script was saved (e.g., /root/service-watchdogs): "${NC})" SCRIPT_DIR
+read -rp "$(echo -e ${CYAN}"📂 Enter the path where the watchdog script was saved (e.g., /root/service-watchdog): "${NC})" SCRIPT_DIR
 if [[ -z "$SCRIPT_DIR" ]]; then
     echo -e "${YELLOW}⚠️ Script path cannot be empty.${NC}"
     exit 1
