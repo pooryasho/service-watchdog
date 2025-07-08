@@ -61,3 +61,28 @@ Persistent across reboots
 
     ✅ Watchdog setup complete for nginx.service!
     🔍 To check the status: systemctl status nginx-watchdog.timer
+
+
+
+🧹 Uninstaller — uninstall.sh
+Safely removes a systemd watchdog that was installed for a specific service.
+
+🔧 What It Does:
+
+Prompts for:
+
+✅ Systemd service name (e.g., nginx.service)
+
+📁 The directory path where the watchdog script was saved (e.g., /root/my-watchdog)
+
+Cleans up:
+
+Corresponding .service and .timer files
+
+The service-watchdog.sh script in the provided path
+
+Temporary state file used for cooldown tracking
+
+Leaves the target directory untouched
+
+✅ Keeps your system clean without disrupting other files.
