@@ -3,7 +3,7 @@ This script sets up a watchdog that monitors a systemd service by scanning its l
 
 Install Steps:
 
-    bash install-watchdog.sh
+    bash installer.sh
     
 You will be prompted to enter:
 
@@ -36,7 +36,7 @@ This script removes a previously installed watchdog setup, including its script,
 
 Uninstall Steps:
 
-    bash uninstall-watchdog.sh
+    bash uninstaller.sh
     
 You will be prompted to enter:
 
