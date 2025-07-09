@@ -22,7 +22,7 @@ fi
 TARGET_SERVICE="${SERVICE_BASENAME}.service"
 
 # Ask for the checking interval
-read -rp "$(echo -e ${CYAN}"⏱️  Enter the interval to check the service (e.g., 30s, 1min) [default: 30s]: "${NC})" CHECK_INTERVAL
+read -rp "$(echo -e ${CYAN}"⏱️  Enter the interval to check the service (in seconds) (e.g., 30, 90) [default: 30s]: "${NC})" CHECK_INTERVAL
 CHECK_INTERVAL=${CHECK_INTERVAL:-30s}
 
 # Ask for cooldown time (in seconds)
