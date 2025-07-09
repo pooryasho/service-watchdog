@@ -13,11 +13,11 @@ You will be prompted to enter:
 
 🕑 Cooldown (in seconds) – e.g., 300
 
-📂 Watchdog script directory – e.g., /root/service-watchdogs
+📂 Watchdog script directory – e.g., /root/service-watchdog
 
 This will:
 
-Create a script: /root/service-watchdogs/nginx-watchdog.sh
+Create a script: /root/service-watchdog/nginx-watchdog.sh
 
 Create systemd unit files:
 
@@ -42,7 +42,7 @@ You will be prompted to enter:
 
 🧾 Service name – e.g., nginx
 
-📂 Watchdog script directory – e.g., /root/service-watchdogs
+📂 Watchdog script directory – e.g., /root/service-watchdog
 
 This will:
 
