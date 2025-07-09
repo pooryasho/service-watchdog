@@ -9,7 +9,7 @@ You will be prompted to enter:
 
 ✅ Service name – e.g., nginx
 
-⏱️ Check interval – e.g., 30s, 1min
+⏱️ Check interval (in seconds) – e.g., 30, 90
 
 🕑 Cooldown (in seconds) – e.g., 300
 
