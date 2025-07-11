@@ -61,17 +61,11 @@ if [ -f "\$STATE_FILE" ]; then
     fi
 fi
 
-# Skip if SSH session is active
-if who | grep -qE "ssh"; then
-    echo "[Watchdog] 👤 SSH session detected, skipping restart."
-    exit 0
-fi
-
 # Check for "ERROR" in last 1 line of logs
-LOG_OUTPUT=\$(journalctl -u ${TARGET_SERVICE} -n 1 --no-pager)
+LOG_OUTPUT=\$(journalctl -u ${TARGET_SERVICE} -n 3 --no-pager)
 
-if echo "\$LOG_OUTPUT" | grep -q "ERROR"; then
-    echo "[Watchdog] ❌ ERROR detected - restarting ${TARGET_SERVICE}..."
+if echo "\$LOG_OUTPUT" | grep -Eq "ERROR|WARNING"; then
+    echo "[Watchdog] ❌ ERROR or WARNING detected - restarting ${TARGET_SERVICE}..."
     systemctl restart ${TARGET_SERVICE}
     date +%s > "\$STATE_FILE"
 else
@@ -97,7 +91,7 @@ EOF
 echo -e "${GREEN}🕒 Creating systemd timer (interval: ${CHECK_INTERVAL}) at ${WATCHDOG_TIMER}...${NC}"
 cat > "${WATCHDOG_TIMER}" <<EOF
 [Unit]
-Description=Run ${SERVICE_BASENAME}-watchdog every ${CHECK_INTERVAL}
+Description=Run ${SERVICE_BASENAME}-watchdog every ${CHECK_INTERVAL} seconds
 
 [Timer]
 OnBootSec=1min
